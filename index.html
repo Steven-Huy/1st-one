@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Password</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6f2; /* màu hồng nhạt */
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .heart {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+            margin: 20px auto;
+            transform: rotate(-45deg);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -100px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 100px;
+            top: 0;
+        }
+
+        #heartText {
+            position: absolute;
+            width: 140px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: none;
+            background: none;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            z-index: 10; /* Đặt văn bản ở trên cùng */
+        }
+
+        /* Hoạt ảnh lấp lánh */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: sparkle 1.5s infinite ease-in-out;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                transform: scale(0.5);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="password" id="password" placeholder="Enter password">
+        <button onclick="showHeart()">Submit</button>
+        <div id="heartContainer" class="hidden">
+            <div class="heart"></div>
+            <input type="text" id="heartText" placeholder="Write on the heart">
+        </div>
+    </div>
+    <script>
+        function showHeart() {
+            const password = document.getElementById('password').value;
+            if (password) {
+                document.querySelector('input[type="password"]').classList.add('hidden');
+                document.querySelector('button').classList.add('hidden');
+                document.getElementById('heartContainer').classList.remove('hidden');
+                createSparkles();
+            }
+        }
+
+        function createSparkles() {
+            const body = document.body;
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() * 1.5 + 's';
+                sparkle.style.animationDuration = Math.random() * 1.5 + 1.5 + 's';
+                body.appendChild(sparkle);
+            }
+        }
+    </script>
+</body>
+</html>
